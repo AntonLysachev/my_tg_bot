@@ -4,12 +4,16 @@ version = "0.1.0"
 description = ""
 authors = ["AntonLysachev <anton@lysachev.ru>"]
 readme = "README.md"
+packages = [{include = "bot"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 PyTelegramBotApi-Users = "^1.0"
 pytelegrambotapi = "^4.16.1"
 python-dotenv = "^1.0.1"
+flask = "^3.0.2"
+requests = "^2.31.0"
+pytest = "^8.0.2"
 
 
 [build-system]
