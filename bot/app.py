@@ -24,7 +24,9 @@ def index():
 
 @app.route(f'/{TOKEN}/', methods=['POST'])
 def webhook():
+    print('in')
     if request.headers.get('content-type') == 'application/json':
+        print('in_if')
         json_string = request.get_data().decode('utf-8')
         update = telebot.types.Update.de_json(json_string)
         bot.process_new_updates([update])
@@ -41,7 +43,6 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
     bot.send_message(message.chat.id, f'Привет {message.chat.first_name}!')
-
 
 
 bot.remove_webhook()
