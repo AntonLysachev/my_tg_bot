@@ -50,4 +50,4 @@ bot.set_webhook(url=URL)
 debug_switch = os.getenv('DEBUG_SWITCH')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=debug_switch)
+    app.run(debug=debug_switch)
