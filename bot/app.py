@@ -35,7 +35,6 @@ def webhook():
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    print(message.chat.id)
     bot.send_message(message.chat.id, f'Привет {message.chat.first_name}!')
 
 
