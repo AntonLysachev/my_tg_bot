@@ -27,15 +27,17 @@ def webhook():
     if request.headers.get('content-type') == 'application/json':
         json_string = request.get_data().decode('utf-8')
         update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
-        return 'ok'
+        try:
+            bot.process_new_updates([update])
+        except (Exception) as errore:
+            print(errore)
+        return ''
     else:
         abort(403)
 
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    print(message)
     bot.send_message(message.chat.id, f'Привет {message.chat.first_name}!')
 
 
