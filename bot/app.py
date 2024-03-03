@@ -24,11 +24,10 @@ def index():
 
 @app.route(f'/{TOKEN}/', methods=['POST'])
 def webhook():
-    print('in')
     if request.headers.get('content-type') == 'application/json':
-        print('in_if')
         json_string = request.get_data().decode('utf-8')
         update = telebot.types.Update.de_json(json_string)
+        print(update)
         bot.process_new_updates([update])
         return ''
     else:
