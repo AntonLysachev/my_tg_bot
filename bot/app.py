@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, abort
 import telebot
 import logging
+import json
 
 
 load_dotenv()
@@ -27,10 +28,8 @@ def webhook():
     if request.headers.get('content-type') == 'application/json':
         json_string = request.get_data().decode('utf-8')
         update = telebot.types.Update.de_json(json_string)
-        try:
-            bot.process_new_updates([update])
-        except (Exception) as errore:
-            print(errore)
+        bot.process_new_updates([update])
+        bot.send_message(request.json['message']['chat']['id'], f"Привет {request.json['message']['chat']['first_name']}!")
         return ''
     else:
         abort(403)
