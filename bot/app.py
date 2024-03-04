@@ -41,7 +41,7 @@ def index():
     return 'OK', 200
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" or __name__ =='bot.app':
     bot.remove_webhook()
     bot.set_webhook(url=URL)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=DEBUG_SWITCH)
