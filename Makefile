@@ -7,3 +7,6 @@ start:
 
 dev:
 	poetry run flask --app bot:app --debug run --port 8000
+
+lint:
+	poetry run flake8 bot

@@ -3,11 +3,14 @@ from flask import Flask, request
 import telebot
 from dotenv import load_dotenv
 import logging
-import config
 
 load_dotenv()
 
-bot = telebot.TeleBot(config.BOT_TOKEN)
+DEBUG_SWITCH = os.getenv('DEBUG_SWITCH')
+BOT_TOKEN = os.getenv('TOKEN')
+APP_URL = os.getenv('URL')
+
+bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
 logger = telebot.logger
 logger.setLevel(logging.DEBUG)
@@ -23,7 +26,7 @@ def echo_message(message):
     bot.send_message(message.chat.id, message.text)
 
 
-@app.route(f'/{config.BOT_TOKEN}', methods=['POST'])
+@app.route(f'/{BOT_TOKEN}', methods=['POST'])
 def getMessage():
     json_string = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_string)
@@ -33,5 +36,5 @@ def getMessage():
 
 if __name__ == "__main__":
     bot.remove_webhook()
-    bot.set_webhook(url=config.APP_URL)    
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    bot.set_webhook(url=APP_URL)
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=DEBUG_SWITCH)
