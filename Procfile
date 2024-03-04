@@ -1,1 +1,1 @@
-web: python3 bot/app.py
+web: poetry run flask --app bot:app run
