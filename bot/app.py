@@ -31,11 +31,6 @@ def getMessage():
     return "!", 200
 
 
-@app.route('/')
-def webhook():
-    return "!", 200
-
-
 if __name__ == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=config.APP_URL)    
