@@ -6,7 +6,6 @@ import logging
 
 load_dotenv()
 
-DEBUG_SWITCH = os.getenv('DEBUG_SWITCH')
 BOT_TOKEN = os.getenv('TOKEN')
 APP_URL = os.getenv('URL')
 
@@ -28,6 +27,7 @@ def echo_message(message):
 
 @app.route(f'/{BOT_TOKEN}', methods=['POST'])
 def getMessage():
+    print('!!!!!!!!!')
     json_string = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
@@ -36,5 +36,5 @@ def getMessage():
 
 if __name__ == "__main__":
     bot.remove_webhook()
-    bot.set_webhook(url=APP_URL)
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=DEBUG_SWITCH)
+    bot.set_webhook(url=APP_URL)    
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
