@@ -8,6 +8,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv('TOKEN')
 APP_URL = os.getenv('URL')
+DEBUG_SWITCH = os.getenv('DEBUG_SWITCH')
 
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
@@ -33,7 +34,14 @@ def getMessage():
     return "!", 200
 
 
+@app.route('/')
+def index():
+    bot.remove_webhook()
+    bot.set_webhook(url=APP_URL)
+    return 'OK', 200
+
+
 if __name__ == "__main__":
     bot.remove_webhook()
-    bot.set_webhook(url=APP_URL)    
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    bot.set_webhook(url=APP_URL)
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=DEBUG_SWITCH)
